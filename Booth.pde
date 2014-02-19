@@ -46,6 +46,11 @@ class Booth{
   }
 
   void displayPerson(){
+    float x = map(person[0], 0, 1, 0, width);
+    float y = map(person[1], 0, 1, 0, height);
+    fill(0);
+    ellipse(x, y, 50, 50);
+    println(x + " , " + y);
   }
 
   void displayAlert(){
@@ -56,7 +61,6 @@ class Booth{
      beepSound.play();
      beep = 0;
      beepSound.rewind();
-     println("OH HAI BEEEEEEP! " + currentIndex);
     }
   }
 
@@ -66,6 +70,8 @@ class Booth{
 
     pushMatrix();
     fill(0);
+    //reminder:
+    //this should be near the person
     text(thought, 200, 200);
     popMatrix();
   }
