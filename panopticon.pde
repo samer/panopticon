@@ -2,12 +2,16 @@ import ddf.minim.*;
 import lemma.library.Event;
 import lemma.library.EventHandler;
 import lemma.library.Lemma;
+import processing.video.*;
 
+Capture cam;
 Minim minim;
 AudioPlayer typingSound, beepSound, humSound;
 Lemma lemma;
 int totalBoothNumber = 6;
 int currentIndex = 0;
+int alertEndTime = 0;
+
 
 Booth[] booths;
 
@@ -17,7 +21,9 @@ void setup(){
   typingSound = minim.loadFile("sounds/typing.mp3");
   beepSound = minim.loadFile("sounds/beep.mp3");
   humSound = minim.loadFile("sounds/hum.mp3");
-
+  String[] cameras = Capture.list();
+  cam = new Capture(this, cameras[0]);  
+	 
   booths = new Booth[totalBoothNumber];
   for(int i = 0; i < booths.length; i+=1){
     booths[i] = new Booth(i);
