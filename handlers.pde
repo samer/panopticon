@@ -9,6 +9,9 @@ class ColorStripHandler implements EventHandler {
 
 class PersonHandler implements EventHandler {
   public void callback(Event event){
+    int roomIndex = eventNameToRoomNumber(event.name);
+    float[] coords = event.floatArray;
+    booths[roomIndex].setPerson(coords);
   }
 }
 
