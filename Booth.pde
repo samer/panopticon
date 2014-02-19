@@ -30,6 +30,7 @@ class Booth{
 
   void setAlert(boolean alert){
     this.alert = alert;
+	
   }
 
   void setThought(String thought){
@@ -52,8 +53,28 @@ class Booth{
     ellipse(x, y, 50, 50);
     println(x + " , " + y);
   }
-
+ 
   void displayAlert(){
+	 
+	  int timer = millis();  
+	  
+	  if (alert) {
+		  alertEndTime = millis()+3000;
+		  this.setAlert(false);
+	  }
+	 
+
+	  if (timer < alertEndTime){
+	  	/*println("timer: "+timer+" alertEndTime: "+alertEndTime);*/
+		cam.start();    
+		if (cam.available() == true) {
+			cam.read();
+	  		}
+	  	image(cam, 0, 0);
+	  }
+	  else {
+		  cam.stop();
+	  }
   }
 
   void displayBeep(){
