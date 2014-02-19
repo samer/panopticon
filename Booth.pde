@@ -52,6 +52,12 @@ class Booth{
   }
 
   void displayBeep(){
+    if(beep > 0.7){
+     beepSound.play();
+     beep = 0;
+     beepSound.rewind();
+     println("OH HAI BEEEEEEP! " + currentIndex);
+    }
   }
 
   void displayThought(){

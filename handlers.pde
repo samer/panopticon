@@ -19,6 +19,8 @@ class AlertHandler implements EventHandler {
 
 class BeepHandler implements EventHandler {
   public void callback(Event event){
+    int roomIndex = eventNameToRoomNumber(event.name);
+    booths[roomIndex].setBeep(event.floatValue);
   }
 }
 
