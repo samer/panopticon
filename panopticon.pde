@@ -13,6 +13,10 @@ int currentIndex = 0;
 int alertEndTime = 0;
 
 
+Timer timer50;
+Timer timer200;
+Timer timer5000;
+Timer timer15000;
 Booth[] booths;
 
 void setup(){
@@ -24,6 +28,12 @@ void setup(){
   String[] cameras = Capture.list();
   cam = new Capture(this, cameras[0]);  
 	 
+
+  timer50 = new Timer(50);
+  timer200 = new Timer(200);
+  timer5000 = new Timer(5000);
+  timer15000 = new Timer(15000);
+
   booths = new Booth[totalBoothNumber];
   for(int i = 0; i < booths.length; i+=1){
     booths[i] = new Booth(i);
@@ -60,4 +70,25 @@ int eventNameToRoomNumber(String name){
 void startAmbience(){
   humSound.loop();
   typingSound.loop();
+}
+class Timer{
+  long timer = millis();
+  int interval;
+
+  Timer(int interval){
+    this.interval = interval;
+  }
+
+  void set(long timer){
+    this.timer = timer;
+  }
+
+  boolean check(){
+    if (millis() - timer > interval){
+      timer = millis();
+      return true;
+    } else {
+      return false;
+    }
+  }
 }
