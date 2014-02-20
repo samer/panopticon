@@ -50,19 +50,32 @@ void setup(){
   lemma = new Lemma(this, "HenSam", "NoamNoam");
   for(int i=1; i<=totalBoothNumber; i++){
     lemma.hear("Input_Brainwave_"+i, new ThoughtHandler());
-    lemma.hear("Input_MoodRing_"+i, new ColorStripHandler());
+    //lemma.hear("Input_MoodRing_"+i, new ColorStripHandler());
     lemma.hear("Input_SpiritCenter_"+i, new PersonHandler());
-    lemma.hear("Input_ExtremelyImportant_"+i, new AlertHandler());
-    lemma.hear("Input_EmotionalQuotient_"+i, new BeepHandler());
+    //lemma.hear("Input_ExtremelyImportant_"+i, new AlertHandler());
+    //lemma.hear("Input_EmotionalQuotient_"+i, new BeepHandler());
   }
+
 
   lemma.hear("B1Pressed_6", new BoothHandler());
 
   startAmbience();
 }
 
+void fakeSomeLemmas(){
+  if(timer200.check())
+    ColorStripHandler();
+
+  if(timer15000.check())
+    AlertHandler();
+
+  if(timer50.check())
+    BeepHandler();
+}
+
 void draw(){
   noStroke();
+  fakeSomeLemmas(); 
   booths[currentIndex].display();
   generateOutputs();
   lemma.run();

@@ -1,10 +1,10 @@
-class ColorStripHandler implements EventHandler {
-  public void callback(Event event){
-    String[] colors = new String[10];
-    colors = event.stringArray;
-    int roomIndex = eventNameToRoomNumber(event.name);
-    booths[roomIndex].setColorStrip(colors);
+///
+void ColorStripHandler(){
+  String[] colors = new String[10];
+  for(int i=0; i<colors.length; i+=1){
+    colors[i] = "FF880088";
   }
+  booths[currentIndex].setColorStrip(colors);
 }
 
 class PersonHandler implements EventHandler {
@@ -15,20 +15,15 @@ class PersonHandler implements EventHandler {
   }
 }
 
-class AlertHandler implements EventHandler {
-  public void callback(Event event){
-      int roomIndex = eventNameToRoomNumber(event.name);
-	    if (roomIndex == currentIndex) {
-		    booths[roomIndex].setAlert(true); 
-		  }
-  }
+///
+void AlertHandler(){
+  booths[currentIndex].setAlert(true);
 }
 
-class BeepHandler implements EventHandler {
-  public void callback(Event event){
-    int roomIndex = eventNameToRoomNumber(event.name);
-    booths[roomIndex].setBeep(event.floatValue);
-  }
+///
+void BeepHandler(){
+  println("beep!");
+  booths[currentIndex].setBeep(random(1));
 }
 
 class ThoughtHandler implements EventHandler {
