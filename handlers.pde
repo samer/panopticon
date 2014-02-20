@@ -41,25 +41,8 @@ class ThoughtHandler implements EventHandler {
 
 class BoothHandler implements EventHandler {
   public void callback(Event event){
-
-	  if  (event.name.equals("enc1_Down_2")) {
-		  if (currentIndex == 0) {
-			  currentIndex = 5;
-			  }
-		  else {
-			  currentIndex--;
-		  }
-	  }
-	  if (event.name.equals("enc1_Up_2")){
-		  if (currentIndex == 5) {
-			  currentIndex = 0;
-			  }
-		  else {
-			  currentIndex++;
-		  }
-	  }
-
-	  println("Event name is "+event.name+". Current index is "+currentIndex);
+    currentIndex = (currentIndex == 5 ) ? 0 : currentIndex+1;
+    println("now in room " + (currentIndex + 1));
   }
 }
 
