@@ -2,9 +2,9 @@ import ddf.minim.*;
 import lemma.library.Event;
 import lemma.library.EventHandler;
 import lemma.library.Lemma;
-import processing.video.*;
+import SimpleOpenNI.*;
 
-Capture cam;
+SimpleOpenNI  context;
 Minim minim;
 AudioPlayer typingSound, lBeepSound, sBeepSound, humSound;
 Lemma lemma;
@@ -27,8 +27,15 @@ void setup(){
   sBeepSound = minim.loadFile("sounds/sbeep.mp3");
   lBeepSound = minim.loadFile("sounds/lbeep.mp3");
   humSound = minim.loadFile("sounds/hum.mp3");
-  String[] cameras = Capture.list();
-  cam = new Capture(this, cameras[0]);
+  context = new SimpleOpenNI(this);
+  if (context.isInit() == false)
+  {
+    println("Can't init SimpleOpenNI, maybe the camera is not connected!"); 
+    exit();
+    return;
+  }
+  // enable ir generation
+  context.enableIR();
 
   timer50 = new Timer(50);
   timer200 = new Timer(200);
