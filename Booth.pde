@@ -78,10 +78,15 @@ class Booth{
   }
 
   void displayBeep(){
-    if(beep > 0.7){
-     beepSound.play();
-     beep = 0;
-     beepSound.rewind();
+    if(beep > 0.3){
+      if(beep > 0.5 && beep <= 0.8){
+        sBeepSound.play();
+        sBeepSound.rewind();
+      } else {
+        lBeepSound.play();
+        lBeepSound.rewind();  
+      }
+      beep = 0;
     }
   }
 

@@ -18,9 +18,9 @@ class PersonHandler implements EventHandler {
 class AlertHandler implements EventHandler {
   public void callback(Event event){
       int roomIndex = eventNameToRoomNumber(event.name);
-	  if (roomIndex == currentIndex) {
-		  booths[roomIndex].setAlert(true); 
-		    }
+	    if (roomIndex == currentIndex) {
+		    booths[roomIndex].setAlert(true); 
+		  }
   }
 }
 
