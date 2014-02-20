@@ -19,6 +19,7 @@ Timer timer15000;
 Booth[] booths;
 
 void setup(){
+  background(0);
   size(800,600);
   minim = new Minim(this);
   typingSound = minim.loadFile("sounds/typing.mp3");
@@ -55,7 +56,9 @@ void setup(){
 }
 
 void draw(){
-  background(255);
+  noStroke();
+  fill(255,0,0, 3);
+  rect(0, 0, width, height);
   booths[currentIndex].display();
   generateOutputs();
   lemma.run();

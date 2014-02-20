@@ -2,14 +2,17 @@ class Booth{
   int id;
   String[] colorStrip;
   float[] person;
+  float[] oldPerson;
   float beep;
   boolean alert = false;
   String thought = "nothing yet";
+  boolean thoughtPrinted = true;
   long alertEndTime = 0;
 
   Booth(int i){
     id = i;
     person = new float[3];
+    oldPerson = new float[3];
     colorStrip = new String[10];
 
     for(int k=0; k < colorStrip.length; k+=1){
@@ -22,6 +25,7 @@ class Booth{
   }
 
   void setPerson(float[] person){
+    oldPerson = this.person;
     this.person = person;
   }
 
@@ -35,6 +39,7 @@ class Booth{
 
   void setThought(String thought){
     this.thought = thought;
+    thoughtPrinted = false;
   }
 
   void display(){
@@ -46,11 +51,23 @@ class Booth{
     displayBeep();
   }
 
-  void displayPerson(){
+  float[] mapPersonToCanvas(float[] person){
     float x = map(person[0], 0, 1, 0, width);
     float y = map(person[1], 0, 1, 0, height);
-    fill(0);
-    ellipse(x, y, 50, 50);
+    float[] coords = {x, y};
+    return coords;
+  }
+
+  void displayPerson(){
+    float[] coords = mapPersonToCanvas(person);
+    float[] oldCoords = mapPersonToCanvas(oldPerson);
+
+    stroke(int(random(255)), int(random(255)), int(random(255)));
+    line(oldCoords[0], oldCoords[1], coords[0], coords[1]); 
+
+    noStroke();
+    fill(255);
+    ellipse(coords[0], coords[1], 10, 10);
     //println(x + " , " + y);
   }
  
@@ -86,15 +103,19 @@ class Booth{
   }
 
   void displayThought(){
-    fill(255);
-    ellipse(200,200,300,200);
+    if(!thoughtPrinted){
+      float[] coords = mapPersonToCanvas(person);
+      fill(255);
+      //ellipse(200,200,300,200);
 
-    pushMatrix();
-    fill(0);
-    //reminder:
-    //this should be near the person
-    text(thought, 200, 200);
-    popMatrix();
+      pushMatrix();
+      fill(255);
+      //reminder:
+      //this should be near the person
+      text(thought, coords[0], coords[1]);
+      thoughtPrinted = true;
+      popMatrix();
+    }
   }
 
   void displayColorStrip(){
