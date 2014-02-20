@@ -5,6 +5,7 @@ class Booth{
   float beep;
   boolean alert = false;
   String thought = "nothing yet";
+  long alertEndTime = 0;
 
   Booth(int i){
     id = i;
@@ -30,7 +31,6 @@ class Booth{
 
   void setAlert(boolean alert){
     this.alert = alert;
-	
   }
 
   void setThought(String thought){
@@ -51,25 +51,20 @@ class Booth{
     float y = map(person[1], 0, 1, 0, height);
     fill(0);
     ellipse(x, y, 50, 50);
-    println(x + " , " + y);
+    //println(x + " , " + y);
   }
  
   void displayAlert(){
-	 
-	  int timer = millis();  
-	  
-	  if (alert) {
-		  alertEndTime = millis()+3000;
+   if (alert) {
+		  alertEndTime = millis()+2500;
+		  cam.start();    
 		  this.setAlert(false);
 	  }
 	 
-
-	  if (timer < alertEndTime){
-	  	/*println("timer: "+timer+" alertEndTime: "+alertEndTime);*/
-		cam.start();    
-		if (cam.available() == true) {
-			cam.read();
-	  		}
+	  if (millis() < alertEndTime){
+		  if (cam.available() == true) {
+			  cam.read();
+	    }
 	  	image(cam, 0, 0);
 	  }
 	  else {
@@ -78,10 +73,15 @@ class Booth{
   }
 
   void displayBeep(){
-    if(beep > 0.7){
-     beepSound.play();
-     beep = 0;
-     beepSound.rewind();
+    if(beep > 0.3){
+      if(beep > 0.5 && beep <= 0.8){
+        sBeepSound.play();
+        sBeepSound.rewind();
+      } else {
+        lBeepSound.play();
+        lBeepSound.rewind();  
+      }
+      beep = 0;
     }
   }
 

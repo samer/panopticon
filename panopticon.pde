@@ -6,11 +6,10 @@ import processing.video.*;
 
 Capture cam;
 Minim minim;
-AudioPlayer typingSound, beepSound, humSound;
+AudioPlayer typingSound, lBeepSound, sBeepSound, humSound;
 Lemma lemma;
 int totalBoothNumber = 6;
 int currentIndex = 0;
-int alertEndTime = 0;
 int outputBoothNb = 3;
 
 Timer timer50;
@@ -23,7 +22,8 @@ void setup(){
   size(800,600);
   minim = new Minim(this);
   typingSound = minim.loadFile("sounds/typing.mp3");
-  beepSound = minim.loadFile("sounds/beep.mp3");
+  sBeepSound = minim.loadFile("sounds/sbeep.mp3");
+  lBeepSound = minim.loadFile("sounds/lbeep.mp3");
   humSound = minim.loadFile("sounds/hum.mp3");
   String[] cameras = Capture.list();
   cam = new Capture(this, cameras[0]);
