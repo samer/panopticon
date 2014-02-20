@@ -8,9 +8,10 @@ Capture cam;
 Minim minim;
 AudioPlayer typingSound, lBeepSound, sBeepSound, humSound;
 Lemma lemma;
-int totalBoothNumber = 6;
+int totalBoothNumber = 5;
 int currentIndex = 0;
 int outputBoothNb = 3;
+boolean transition = false;
 
 Timer timer50;
 Timer timer200;
@@ -41,7 +42,7 @@ void setup(){
 
   // LEMMA TIME!
   lemma = new Lemma(this, "HenSam", "NoamNoam");
-  for(int i=1; i<totalBoothNumber; i++){
+  for(int i=1; i<=totalBoothNumber; i++){
     lemma.hear("Input_Brainwave_"+i, new ThoughtHandler());
     lemma.hear("Input_MoodRing_"+i, new ColorStripHandler());
     lemma.hear("Input_SpiritCenter_"+i, new PersonHandler());
@@ -49,16 +50,13 @@ void setup(){
     lemma.hear("Input_EmotionalQuotient_"+i, new BeepHandler());
   }
 
-  lemma.hear("enc1_Down_2", new BoothHandler());
-  lemma.hear("enc1_Up_2", new BoothHandler());
+  lemma.hear("B1Pressed_6", new BoothHandler());
 
   startAmbience();
 }
 
 void draw(){
   noStroke();
-  fill(255,0,0, 3);
-  rect(0, 0, width, height);
   booths[currentIndex].display();
   generateOutputs();
   lemma.run();
@@ -107,10 +105,12 @@ String generateBrainwave(){
 }
 
 String[] generateMoodRing(){
-  String[] colors = {"CCCCCC", "CCCCCC", "CCCCCC", "CCCCCC",  "CCCCCC",
-                     "CCCCCC", "CCCCCC", "CCCCCC", "CCCCCC",  "CCCCCC"};
+  String[] colors = new String[10];
+  String[] colorStrip = booths[currentIndex].getColorStrip();
+  for(int i = 0; i< colors.length; i+=1){
+    colors[i] = colorStrip[int(random(9))].substring(3,7) + colorStrip[int(random(9))].substring(3,7);
+  }
   return colors;
-
 }
 
 float[] generateSpiritCenter(){
@@ -119,5 +119,11 @@ float[] generateSpiritCenter(){
 }
 
 float generateEmotionalQuotient(){
-  return random(1);
-}
+  float x = booths[currentIndex].getPersonCoords()[0];
+  float y = booths[currentIndex].getPersonCoords()[1];
+  if(x+y>=100){
+    return (100/(x+y));
+  } else {
+    return (x+y);
+  }
+ }

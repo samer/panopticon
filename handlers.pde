@@ -41,8 +41,9 @@ class ThoughtHandler implements EventHandler {
 
 class BoothHandler implements EventHandler {
   public void callback(Event event){
-    currentIndex = (currentIndex == 5 ) ? 0 : currentIndex+1;
-    println("now in room " + (currentIndex + 1));
+    int roomIndex = eventNameToRoomNumber(event.name);
+    currentIndex = (currentIndex == totalBoothNumber - 1 ) ? 0 : currentIndex+1;
+    transition = true;
   }
 }
 

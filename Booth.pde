@@ -1,8 +1,8 @@
 class Booth{
   int id;
   String[] colorStrip;
-  float[] person;
-  float[] oldPerson;
+  float[] person = {0, 0, 0};
+  float[] oldPerson = {0, 0, 0};
   float beep;
   boolean alert = false;
   String thought = "nothing yet";
@@ -11,12 +11,10 @@ class Booth{
 
   Booth(int i){
     id = i;
-    person = new float[3];
-    oldPerson = new float[3];
     colorStrip = new String[10];
 
     for(int k=0; k < colorStrip.length; k+=1){
-      colorStrip[k] = "FFFFFF";
+      colorStrip[k] = "FFFFFFFF";
     }
   }
 
@@ -42,10 +40,27 @@ class Booth{
     thoughtPrinted = false;
   }
 
+  String[] getColorStrip(){
+    return colorStrip;
+  }
+
+  float[] getPersonCoords(){
+    return this.mapPersonToCanvas(person);
+  }
+
   void display(){
-    // DISPLAY ALL THE THINGS.
+    if(transition){
+      transition = false;
+      fill(0,0,0,255);
+      println(transition);
+    } else {
+      fill(0,0,0,3);
+    }
+    
+    rect(0, 0, width, height);
+
     displayThought();
-    displayColorStrip();
+    //displayColorStrip();
     displayPerson();
     displayAlert();
     displayBeep();
@@ -62,7 +77,8 @@ class Booth{
     float[] coords = mapPersonToCanvas(person);
     float[] oldCoords = mapPersonToCanvas(oldPerson);
 
-    stroke(int(random(255)), int(random(255)), int(random(255)));
+
+    stroke(unhex(colorStrip[int(random(9))]));
     line(oldCoords[0], oldCoords[1], coords[0], coords[1]); 
 
     noStroke();
@@ -73,12 +89,13 @@ class Booth{
  
   void displayAlert(){
    if (alert) {
-		  alertEndTime = millis()+2500;
-		  cam.start();    
+		  /*alertEndTime = millis()+2500;
+		  cam.start();*/
+      saveFrame("screen-" + hour() + "-" + minute() + "-" + second() + ".png");
 		  this.setAlert(false);
 	  }
 	 
-	  if (millis() < alertEndTime){
+	  /*if (millis() < alertEndTime){
 		  if (cam.available() == true) {
 			  cam.read();
 	    }
@@ -86,7 +103,7 @@ class Booth{
 	  }
 	  else {
 		  cam.stop();
-	  }
+	  }*/
   }
 
   void displayBeep(){
