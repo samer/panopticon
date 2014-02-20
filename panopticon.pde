@@ -10,7 +10,6 @@ AudioPlayer typingSound, lBeepSound, sBeepSound, humSound;
 Lemma lemma;
 int totalBoothNumber = 6;
 int currentIndex = 0;
-int alertEndTime = 0;
 int outputBoothNb = 3;
 
 Timer timer50;
