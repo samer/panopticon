@@ -7,6 +7,7 @@ class Booth{
   boolean alert = false;
   String thought = "nothing yet";
   boolean thoughtPrinted = true;
+  boolean firstEntry = true;
   long alertEndTime = 0;
 
   Booth(int i){
@@ -87,23 +88,23 @@ class Booth{
     //println(x + " , " + y);
   }
  
-  void displayAlert(){
-   if (alert) {
-		  /*alertEndTime = millis()+2500;
-		  cam.start();*/
-      saveFrame("screen-" + hour() + "-" + minute() + "-" + second() + ".png");
-		  this.setAlert(false);
-	  }
-	 
-	  /*if (millis() < alertEndTime){
-		  if (cam.available() == true) {
-			  cam.read();
-	    }
-	  	image(cam, 0, 0);
-	  }
-	  else {
-		  cam.stop();
-	  }*/
+  void displayAlert() {
+    if (alert) {
+      if (firstEntry) {
+        saveFrame("screen-" + hour() + "-" + minute() + "-" + second() + ".png");
+        alertEndTime = millis()+2500;
+        firstEntry=false;
+      }
+      context.update();
+      image(context.irImage(), 0, 0, width, height);
+      if (millis() > alertEndTime) {
+        saveFrame("camera-" + hour() + "-" + minute() + "-" + second() + ".png");
+        fill(0, 255);
+        rect(0, 0, width, height);
+        this.setAlert(false);
+        firstEntry=true;
+      }
+    }
   }
 
   void displayBeep(){
