@@ -87,8 +87,8 @@ void generateOutputs(){
   }
 
   if(timer15000.check()){
-    boolean extremelyImportant = generateExtremelyImportant();
-    lemma.sendEvent("Output_ExtremelyImportant_"+outputBoothNb, "");  }
+    lemma.sendEvent("Output_ExtremelyImportant_"+outputBoothNb, "");
+  }
 
   if(timer50.check()){
     float emotionalQuotient = generateEmotionalQuotient();
@@ -105,13 +105,13 @@ String generateBrainwave(){
 
 String[] generateMoodRing(){
   String[] colors = {"CCCCCC", "CCCCCC", "CCCCCC", "CCCCCC",  "CCCCCC",
-                     "CCCCCC", "CCCCCC", "CCCCCC", "CCCCCC",  "CCCCCC"}
+                     "CCCCCC", "CCCCCC", "CCCCCC", "CCCCCC",  "CCCCCC"};
   return colors;
 
 }
 
 float[] generateSpiritCenter(){
-  float[] coords = {random(1), random(1), random(1)}
+  float[] coords = {random(1), random(1), random(1)};
   return coords;
 }
 
