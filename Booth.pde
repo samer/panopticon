@@ -108,6 +108,7 @@ class Booth{
       image(context.irImage(), 0, 0, width, height);
       fill(255);
       textFont(courier, 25);
+      textAlign(LEFT);
       text("MONITORING BOOTH #6", 0, 20);
       textAlign(RIGHT);
       text(year() + "/" + month() + "/" + day() + " " + hour() + ":" + minute() + ":" + second(), width, 20);

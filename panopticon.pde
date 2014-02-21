@@ -8,9 +8,9 @@ SimpleOpenNI context;
 Minim minim;
 AudioPlayer typingSound, lBeepSound, sBeepSound, humSound;
 Lemma lemma;
-int totalBoothNumber = 5;
+int totalBoothNumber = 6;
 int currentIndex = 0;
-int outputBoothNb = 3;
+int outputBoothNb = 2;
 boolean transition = false;
 
 Timer timer50;
@@ -53,11 +53,13 @@ void setup(){
   // LEMMA TIME!
   lemma = new Lemma(this, "HenSam", "NoamNoam");
   for(int i=1; i<=totalBoothNumber; i++){
-    lemma.hear("Input_Brainwave_"+i, new ThoughtHandler());
-    //lemma.hear("Input_MoodRing_"+i, new ColorStripHandler());
-    lemma.hear("Input_SpiritCenter_"+i, new PersonHandler());
-    //lemma.hear("Input_ExtremelyImportant_"+i, new AlertHandler());
-    //lemma.hear("Input_EmotionalQuotient_"+i, new BeepHandler());
+    if (i!=outputBoothNb){
+      lemma.hear("BrainwaveOut"+i, new ThoughtHandler());
+      //lemma.hear("Input_MoodRing_"+i, new ColorStripHandler());
+      lemma.hear("SpiritCenterOut"+i, new PersonHandler());
+      //lemma.hear("Input_ExtremelyImportant_"+i, new AlertHandler());
+      //lemma.hear("Input_EmotionalQuotient_"+i, new BeepHandler());
+    }
   }
 
 
@@ -99,24 +101,24 @@ void generateOutputs(){
 
   if(timer5000.check()){
     String brainwave = generateBrainwave();
-    lemma.sendEvent("Output_Brainwave_"+outputBoothNb, brainwave);
+    lemma.sendEvent("BrainwaveOut"+outputBoothNb, brainwave);
   }
 
   if(timer200.check()){
     String[] moodRing = generateMoodRing();
-    lemma.sendEvent("Output_MoodRing_"+outputBoothNb, moodRing);
+    lemma.sendEvent("MoodRingOut"+outputBoothNb, moodRing);
   
     float[] spiritCenter = generateSpiritCenter();
-    lemma.sendEvent("Output_SpiritCenter_"+outputBoothNb, spiritCenter);
+    lemma.sendEvent("SpiritCenterOut"+outputBoothNb, spiritCenter);
   }
 
   if(timer15000.check()){
-    lemma.sendEvent("Output_ExtremelyImportant_"+outputBoothNb, "");
+    lemma.sendEvent("ExtremelyImportantOut"+outputBoothNb, "");
   }
 
   if(timer50.check()){
     float emotionalQuotient = generateEmotionalQuotient();
-    lemma.sendEvent("Output_EmotionalQuotient_"+outputBoothNb, emotionalQuotient);
+    lemma.sendEvent("EmotionalQuotientOut"+outputBoothNb, emotionalQuotient);
   }
 }
 

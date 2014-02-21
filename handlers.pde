@@ -40,6 +40,9 @@ class BoothHandler implements EventHandler {
   public void callback(Event event){
     int roomIndex = eventNameToRoomNumber(event.name);
     currentIndex = (currentIndex == totalBoothNumber - 1 ) ? 0 : currentIndex+1;
+    if (currentIndex == (outputBoothNb-1)){
+      currentIndex++;
+    }
     transition = true;
   }
 }
