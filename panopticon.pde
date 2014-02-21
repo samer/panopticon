@@ -2,9 +2,9 @@ import ddf.minim.*;
 import lemma.library.Event;
 import lemma.library.EventHandler;
 import lemma.library.Lemma;
-//import SimpleOpenNI.*;
+import SimpleOpenNI.*;
 
-//SimpleOpenNI context;
+SimpleOpenNI context;
 Minim minim;
 AudioPlayer typingSound, lBeepSound, sBeepSound, humSound;
 Lemma lemma;
@@ -22,23 +22,23 @@ Booth[] booths;
 PFont courier;
 
 void setup(){
+  ((javax.swing.JFrame) frame).getContentPane().setBackground(new java.awt.Color(0)); //change bgcolor to black  
   courier = createFont("Courier New", 25);
   background(0);
   size(1024, 768);
-  //size(displayWidth, displayHeight);
   minim = new Minim(this);
   typingSound = minim.loadFile("sounds/typing.mp3");
   sBeepSound = minim.loadFile("sounds/sbeep.mp3");
   lBeepSound = minim.loadFile("sounds/lbeep.mp3");
   humSound = minim.loadFile("sounds/hum.mp3");
   
-  //context = new SimpleOpenNI(this);
-  //if(context.isInit() == false){
-    //println("Can't init SimpleOpenNI, maybe the camera is not connected!"); 
-    //exit();
-    //return;
-  //}
-  //context.enableIR();
+  context = new SimpleOpenNI(this);
+  if(context.isInit() == false){
+    println("Can't init SimpleOpenNI, maybe the camera is not connected!"); 
+    exit();
+    return;
+  }
+  context.enableIR();
 
   timer50 = new Timer(50);
   timer200 = new Timer(200);

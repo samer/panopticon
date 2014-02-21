@@ -65,9 +65,10 @@ class Booth{
 
     fill(255);
     textFont(courier, 25);
-    text("MONITORING BOOTH #" + (currentIndex + 1), 150, 80);
-    text(year() + "/" + month() + "/" + day() + " " + hour() + ":" + minute() + ":" + second(), width-300, 80);
-
+    textAlign(LEFT);
+    text("MONITORING BOOTH #" + (currentIndex + 1), 0, 20);
+    textAlign(RIGHT);
+    text(year() + "/" + month() + "/" + day() + " " + hour() + ":" + minute() + ":" + second(), width, 20);
     displayThought();
     //displayColorStrip();
     displayPerson();
@@ -76,8 +77,8 @@ class Booth{
   }
 
   float[] mapPersonToCanvas(float[] person){
-    float x = map(person[0], 0, 1, 150, width-150);
-    float y = map(person[1], 0, 1, 150, height-50);
+    float x = map(person[0], 0, 1, 10, width-10);
+    float y = map(person[1], 0, 1, 150, height-160);
     float[] coords = {x, y};
     return coords;
   }
@@ -103,14 +104,13 @@ class Booth{
         alertEndTime = millis()+2500;
         firstEntry=false;
       }
-      //context.update();
-      //image(context.irImage(), 0, 0, width, height);
-      fill(200,200,200);
-      rect(0, 0, width, height);
+      context.update();
+      image(context.irImage(), 0, 0, width, height);
       fill(255);
       textFont(courier, 25);
-      text("MONITORING BOOTH #6", 150, 80);
-      text(year() + "/" + month() + "/" + day() + " " + hour() + ":" + minute() + ":" + second(), width-300, 80);
+      text("MONITORING BOOTH #6", 0, 20);
+      textAlign(RIGHT);
+      text(year() + "/" + month() + "/" + day() + " " + hour() + ":" + minute() + ":" + second(), width, 20);
       noStroke();
 
       if (millis() > alertEndTime) {
