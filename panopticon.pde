@@ -21,6 +21,8 @@ Booth[] booths;
 
 PFont courier;
 
+String IMAGE_PATH = "/Users/martino/Dropbox/Public/panopticon/";
+
 void setup(){
   ((javax.swing.JFrame) frame).getContentPane().setBackground(new java.awt.Color(0)); //change bgcolor to black  
   courier = createFont("Courier New", 25);

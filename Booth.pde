@@ -64,11 +64,11 @@ class Booth{
     rect(0,0, width, 80);
 
     fill(255);
-    textFont(courier, 25);
+    textFont(courier, 35);
     textAlign(LEFT);
-    text("MONITORING BOOTH #" + (currentIndex + 1), 0, 20);
+    text("MONITORING BOOTH #" + (currentIndex + 1), 0, 30);
     textAlign(RIGHT);
-    text(year() + "/" + month() + "/" + day() + " " + hour() + ":" + minute() + ":" + second(), width, 20);
+    text(year() + "/" + month() + "/" + day() + " " + hour() + ":" + minute() + ":" + second(), width, 30);
     displayThought();
     //displayColorStrip();
     displayPerson();
@@ -100,22 +100,22 @@ class Booth{
   void displayAlert() {
     if (alert) {
       if (firstEntry) {
-        saveFrame("screen-" + hour() + "-" + minute() + "-" + second() + ".png");
-        alertEndTime = millis()+2500;
+        saveFrame(IMAGE_PATH + "screen-" + hour() + "-" + minute() + "-" + second() + ".png");
+        alertEndTime = millis()+3500;
         firstEntry=false;
       }
       context.update();
       image(context.irImage(), 0, 0, width, height);
       fill(255);
-      textFont(courier, 25);
+      textFont(courier, 35);
       textAlign(LEFT);
-      text("MONITORING BOOTH #6", 0, 20);
+      text("MONITORING TARGET", 0, 30);
       textAlign(RIGHT);
-      text(year() + "/" + month() + "/" + day() + " " + hour() + ":" + minute() + ":" + second(), width, 20);
+      text(year() + "/" + month() + "/" + day() + " " + hour() + ":" + minute() + ":" + second(), width, 30);
       noStroke();
 
       if (millis() > alertEndTime) {
-        saveFrame("camera-" + hour() + "-" + minute() + "-" + second() + ".png");
+        saveFrame(IMAGE_PATH + "camera-" + hour() + "-" + minute() + "-" + second() + ".png");
         fill(0, 255);
         rect(0, 0, width, height);
         this.setAlert(false);
@@ -147,7 +147,8 @@ class Booth{
       fill(255);
       //reminder:
       //this should be near the person
-      textSize(15);
+      textAlign(LEFT);
+      textSize(17);
       text(thought, coords[0], coords[1], 300, 300);
       thoughtPrinted = true;
       popMatrix();
