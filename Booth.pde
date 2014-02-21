@@ -60,6 +60,14 @@ class Booth{
     
     rect(0, 0, width, height);
 
+    fill(0);
+    rect(0,0, width, 80);
+
+    fill(255);
+    textFont(courier, 25);
+    text("MONITORING BOOTH #" + (currentIndex + 1), 150, 80);
+    text(year() + "/" + month() + "/" + day() + " " + hour() + ":" + minute() + ":" + second(), width-300, 80);
+
     displayThought();
     //displayColorStrip();
     displayPerson();
@@ -68,8 +76,8 @@ class Booth{
   }
 
   float[] mapPersonToCanvas(float[] person){
-    float x = map(person[0], 0, 1, 0, width);
-    float y = map(person[1], 0, 1, 0, height);
+    float x = map(person[0], 0, 1, 150, width-150);
+    float y = map(person[1], 0, 1, 150, height-50);
     float[] coords = {x, y};
     return coords;
   }
@@ -79,7 +87,7 @@ class Booth{
     float[] oldCoords = mapPersonToCanvas(oldPerson);
 
 
-    stroke(unhex(colorStrip[int(random(9))]));
+    stroke(unhex(colorStrip[currentIndex]));
     line(oldCoords[0], oldCoords[1], coords[0], coords[1]); 
 
     noStroke();
@@ -95,8 +103,16 @@ class Booth{
         alertEndTime = millis()+2500;
         firstEntry=false;
       }
-      context.update();
-      image(context.irImage(), 0, 0, width, height);
+      //context.update();
+      //image(context.irImage(), 0, 0, width, height);
+      fill(200,200,200);
+      rect(0, 0, width, height);
+      fill(255);
+      textFont(courier, 25);
+      text("MONITORING BOOTH #6", 150, 80);
+      text(year() + "/" + month() + "/" + day() + " " + hour() + ":" + minute() + ":" + second(), width-300, 80);
+      noStroke();
+
       if (millis() > alertEndTime) {
         saveFrame("camera-" + hour() + "-" + minute() + "-" + second() + ".png");
         fill(0, 255);
@@ -130,7 +146,8 @@ class Booth{
       fill(255);
       //reminder:
       //this should be near the person
-      text(thought, coords[0], coords[1]);
+      textSize(15);
+      text(thought, coords[0], coords[1], 300, 300);
       thoughtPrinted = true;
       popMatrix();
     }

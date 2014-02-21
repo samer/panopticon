@@ -1,9 +1,11 @@
 ///
 void ColorStripHandler(){
-  String[] colors = new String[10];
-  for(int i=0; i<colors.length; i+=1){
-    colors[i] = "FF880088";
-  }
+  String[] colors = new String[5];
+  colors[0] = "fff91f1f";
+  colors[1] = "fff9a21f";
+  colors[2] = "fff9f91f";
+  colors[3] = "ff1ace1a";
+  colors[4] = "ff1aa1ce";
   booths[currentIndex].setColorStrip(colors);
 }
 

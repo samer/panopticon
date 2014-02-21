@@ -2,9 +2,9 @@ import ddf.minim.*;
 import lemma.library.Event;
 import lemma.library.EventHandler;
 import lemma.library.Lemma;
-import SimpleOpenNI.*;
+//import SimpleOpenNI.*;
 
-SimpleOpenNI context;
+//SimpleOpenNI context;
 Minim minim;
 AudioPlayer typingSound, lBeepSound, sBeepSound, humSound;
 Lemma lemma;
@@ -19,22 +19,26 @@ Timer timer5000;
 Timer timer15000;
 Booth[] booths;
 
+PFont courier;
+
 void setup(){
+  courier = createFont("Courier New", 25);
   background(0);
-  size(800,600);
+  size(1024, 768);
+  //size(displayWidth, displayHeight);
   minim = new Minim(this);
   typingSound = minim.loadFile("sounds/typing.mp3");
   sBeepSound = minim.loadFile("sounds/sbeep.mp3");
   lBeepSound = minim.loadFile("sounds/lbeep.mp3");
   humSound = minim.loadFile("sounds/hum.mp3");
   
-  context = new SimpleOpenNI(this);
-  if(context.isInit() == false){
-    println("Can't init SimpleOpenNI, maybe the camera is not connected!"); 
-    exit();
-    return;
-  }
-  context.enableIR();
+  //context = new SimpleOpenNI(this);
+  //if(context.isInit() == false){
+    //println("Can't init SimpleOpenNI, maybe the camera is not connected!"); 
+    //exit();
+    //return;
+  //}
+  //context.enableIR();
 
   timer50 = new Timer(50);
   timer200 = new Timer(200);
@@ -127,7 +131,7 @@ String[] generateMoodRing(){
   String[] colors = new String[10];
   String[] colorStrip = booths[currentIndex].getColorStrip();
   for(int i = 0; i< colors.length; i+=1){
-    colors[i] = colorStrip[int(random(9))].substring(3,7) + colorStrip[int(random(9))].substring(3,7);
+    colors[i] = colorStrip[int(random(5))].substring(3,7) + colorStrip[int(random(5))].substring(3,7);
   }
   return colors;
 }
@@ -146,3 +150,7 @@ float generateEmotionalQuotient(){
     return (x+y);
   }
  }
+
+boolean sketchFullScreen(){
+  return true;
+}
